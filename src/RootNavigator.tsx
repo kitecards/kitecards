@@ -51,8 +51,8 @@ const ProfileStackScreen: React.FC = () => {
 };
 
 export const RootNavigator: React.FC = () => {
-  const theme = useTheme();
-  const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
+  const { dark, colors } = useTheme();
+  const navigationTheme = dark ? DarkTheme : DefaultTheme;
 
   return (
     <NavigationContainer theme={navigationTheme}>
@@ -74,6 +74,7 @@ export const RootNavigator: React.FC = () => {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
+        tabBarOptions={{showLabel: false, activeTintColor: colors.primary}}
       >
         <Tab.Screen name="Stores" component={StoresStackScreen} />
         <Tab.Screen name="Cards" component={HomeStackScreen} />

@@ -1,18 +1,16 @@
 import React from "react";
 import { UserProvider } from "./UserContext";
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {PreferencesProvider} from "./PreferencesContext";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StyleProvider } from "./StyleContext";
 
 const AppProviders: React.FC = ({ children }) => {
   return (
     <SafeAreaProvider>
-      <PreferencesProvider>
-        <UserProvider>
-          {children}
-        </UserProvider>
-      </PreferencesProvider>
+      <StyleProvider>
+        <UserProvider>{children}</UserProvider>
+      </StyleProvider>
     </SafeAreaProvider>
   );
 };
 
-export { AppProviders }
+export { AppProviders };
