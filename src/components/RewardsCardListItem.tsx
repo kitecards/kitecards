@@ -30,7 +30,6 @@ export const RewardsCardListItem: React.FC<RewardsCardListItemProps> = ({
       elevation: 4,
       borderRadius: 10,
       alignContent: "space-between",
-      marginBottom: 20,
       backgroundColor,
       color: textColor,
     },
@@ -42,12 +41,9 @@ export const RewardsCardListItem: React.FC<RewardsCardListItemProps> = ({
       padding: 10,
 
     },
-    topHeadingTitle: {
-      flex: 0.7,
-    },
     topHeadingCaption: {
-      flex: 0.3,
-      alignSelf: "flex-end",
+      flex: 1,
+      textAlign: "right"
     },
     touchRipple: {
       borderRadius: 10,
@@ -75,7 +71,7 @@ export const RewardsCardListItem: React.FC<RewardsCardListItemProps> = ({
           onPress={() => onSelect(rewardsCard.id)}
         >
           <View style={styles.topHeading}>
-            <Title style={styles.topHeadingTitle}>{companyName}</Title>
+            <Title>{companyName}</Title>
             <Caption style={styles.topHeadingCaption}>{companyLocation}</Caption>
           </View>
         </TouchableRipple>
