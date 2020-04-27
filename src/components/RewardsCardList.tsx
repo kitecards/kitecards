@@ -6,9 +6,10 @@ import {RewardsCardListItem} from "./RewardsCardListItem";
 
 type RewardsCardList = {
   rewardsCards: RewardsCard[];
+  onSelect: (rewardsCardId: string) => void
 };
 
-export const RewardsCardList: React.FC<RewardsCardList> = ({ rewardsCards }) => {
+export const RewardsCardList: React.FC<RewardsCardList> = ({ rewardsCards, onSelect }) => {
   return (
     <View>
       {rewardsCards.map((rewardsCard, index) => {
@@ -16,7 +17,7 @@ export const RewardsCardList: React.FC<RewardsCardList> = ({ rewardsCards }) => 
 
         return (
           <View style={{top: topVal, width: "100%", position: "absolute"}}>
-            <RewardsCardListItem rewardsCard={rewardsCard} />
+            <RewardsCardListItem rewardsCard={rewardsCard} onSelect={onSelect} />
           </View>
         )
       })}

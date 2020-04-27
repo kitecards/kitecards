@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native";
 import {
   Surface,
   Title,
-  Subheading,
   Caption,
   TouchableRipple,
 } from "react-native-paper";
@@ -11,18 +10,20 @@ import { RewardsCard } from "../common/interfaces";
 
 type RewardsCardListItemProps = {
   rewardsCard: RewardsCard;
+  onSelect: (rewardsCardId: string) => void
 };
 
 export const RewardsCardListItem: React.FC<RewardsCardListItemProps> = ({
   rewardsCard,
+  onSelect
 }) => {
   const {
     companyName,
     backgroundColor,
     textColor,
     companyLocation,
-    promoTitle
   } = rewardsCard;
+
   const styles = StyleSheet.create({
     cardContainer: {
       width: "100%",
@@ -38,7 +39,8 @@ export const RewardsCardListItem: React.FC<RewardsCardListItemProps> = ({
       alignItems: "center",
       alignContent: "space-between",
       marginBottom: 10,
-      padding: 10
+      padding: 10,
+
     },
     topHeadingTitle: {
       flex: 0.7,
@@ -48,27 +50,29 @@ export const RewardsCardListItem: React.FC<RewardsCardListItemProps> = ({
       alignSelf: "flex-end",
     },
     touchRipple: {
-      borderRadius: 10
+      borderRadius: 10,
     },
     bottomContent: {
       backgroundColor: "#9D9D9D",
       height: 50,
-      borderBottomLeftRadius: 10,
-      borderBottomRightRadius: 10,
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
       flex: 1,
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
     },
     clickRewardsCaption: {
-      color: "black"
+      color: "black",
+      fontSize: 15
     },
   });
+
   return (
     <View>
       <Surface style={styles.cardContainer}>
         <TouchableRipple
           style={styles.touchRipple}
-          onPress={() => console.log("Pressed")}
+          onPress={() => onSelect(rewardsCard.id)}
         >
           <View style={styles.topHeading}>
             <Title style={styles.topHeadingTitle}>{companyName}</Title>

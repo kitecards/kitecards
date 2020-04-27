@@ -1,9 +1,8 @@
 import React from "react";
 import { AppLayout } from "../components/AppLayout";
 import { Content } from "../components/Content";
-import {RewardsCard} from "../common/interfaces";
-import { View} from "react-native";
-import {RewardsCardList} from "../components/RewardsCardList";
+import { RewardsCard } from "../common/interfaces";
+import { RewardsCardList } from "../components/RewardsCardList";
 
 export const HomeScreen: React.FC = () => {
   const data: RewardsCard[] = [
@@ -20,7 +19,7 @@ export const HomeScreen: React.FC = () => {
       companyLocation: "Solenad, Nuvali",
       totalCount: 10,
       backgroundColor: "#000000",
-      textColor: "#FFFFFF"
+      textColor: "#FFFFFF",
     },
     {
       id: "2",
@@ -35,7 +34,7 @@ export const HomeScreen: React.FC = () => {
       companyLocation: "Solenad, Nuvali",
       totalCount: 5,
       backgroundColor: "#81042B",
-      textColor: "#FFFFFF"
+      textColor: "#FFFFFF",
     },
     {
       id: "4",
@@ -50,15 +49,18 @@ export const HomeScreen: React.FC = () => {
       companyLocation: "Solenad, Nuvali",
       totalCount: 5,
       backgroundColor: "#007C3D",
-      textColor: "#FFFFFF"
+      textColor: "#FFFFFF",
     },
   ];
+
+  const rewardsCardOnSelectHandler = (rewardsCardId: string) => {
+    console.log(rewardsCardId);
+  }
 
   return (
     <AppLayout>
       <Content>
-        <View style={{height: 300}} />
-        <RewardsCardList rewardsCards={data} />
+        <RewardsCardList rewardsCards={data} onSelect={rewardsCardOnSelectHandler} />
       </Content>
     </AppLayout>
   );
