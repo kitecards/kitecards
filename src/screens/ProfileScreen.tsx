@@ -1,9 +1,12 @@
 import React from "react";
 import { Text } from "react-native-paper";
-import { View } from "react-native";
+import { AppLayout } from "../components/AppLayout";
+import { Content } from "../components/Content";
 
 export const ProfileScreen: React.FC = () => (
-  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    <Text>Profile Screen</Text>
-  </View>
+  <AppLayout>
+    <Content>
+      <Text>Profile Screen</Text>
+    </Content>
+  </AppLayout>
 );

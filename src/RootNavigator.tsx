@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen } from "./screens/HomeScreen";
 import { ProfileScreen } from "./screens/ProfileScreen";
-import { StoresScreen } from "./screens/StoresScreen";
+import { PromosScreen } from "./screens/PromosScreen";
 import { useTheme } from "react-native-paper";
 
 const Tab = createBottomTabNavigator();
@@ -18,10 +18,16 @@ const HomeStackScreen: React.FC = () => {
   return (
     <HomeStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          shadowOffset: { height: 0, width: 0 },
+        },
       }}
     >
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: "My Rewards" }}
+      />
     </HomeStack.Navigator>
   );
 };
@@ -30,10 +36,12 @@ const StoresStackScreen: React.FC = () => {
   return (
     <StoresStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          shadowOffset: { height: 0, width: 0 },
+        },
       }}
     >
-      <StoresStack.Screen name="Stores" component={StoresScreen} />
+      <StoresStack.Screen name="Promos" component={PromosScreen} />
     </StoresStack.Navigator>
   );
 };
@@ -42,7 +50,9 @@ const ProfileStackScreen: React.FC = () => {
   return (
     <ProfileStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          shadowOffset: { height: 0, width: 0 },
+        },
       }}
     >
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
@@ -74,7 +84,7 @@ export const RootNavigator: React.FC = () => {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
-        tabBarOptions={{showLabel: false, activeTintColor: colors.primary}}
+        tabBarOptions={{ showLabel: false, activeTintColor: colors.primary }}
       >
         <Tab.Screen name="Stores" component={StoresStackScreen} />
         <Tab.Screen name="Cards" component={HomeStackScreen} />

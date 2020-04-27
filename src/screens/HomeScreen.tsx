@@ -1,9 +1,14 @@
 import React from "react";
-import { View } from "react-native";
 import { Text } from "react-native-paper";
+import { AppLayout } from "../components/AppLayout";
+import { Content } from "../components/Content";
 
-export const HomeScreen: React.FC = () => (
-  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    <Text>Home Screen</Text>
-  </View>
-);
+export const HomeScreen: React.FC = () => {
+  return (
+    <AppLayout>
+      <Content>
+        <Text>Home</Text>
+      </Content>
+    </AppLayout>
+  );
+};
