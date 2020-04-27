@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Image } from "react-native";
-import { Surface, Title, Subheading, Caption, Avatar } from "react-native-paper";
+import { Surface, Title, Subheading, Caption } from "react-native-paper";
+import {Promo} from "../common/interfaces";
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -29,29 +30,21 @@ const styles = StyleSheet.create({
 });
 
 type PromoCardProps = {
-  promoId: string;
-  storeName: string;
-  storeLogo: string;
-  tagLine: string;
-  description: string;
-  location: string;
+  promo: Promo
 };
 
-export const PromoCard: React.FC<PromoCardProps> = ({
-  storeName,
-  tagLine,
-  location,
-  storeLogo,
-}) => {
+export const PromoCard: React.FC<PromoCardProps> = ({ promo }) => {
+  const { companyName, title, location, companyLogo } = promo;
+
   return (
     <Surface style={styles.cardContainer}>
       <View style={styles.textContainer}>
-        <Title>{storeName}</Title>
-        <Subheading>{tagLine}</Subheading>
+        <Title>{companyName}</Title>
+        <Subheading>{title}</Subheading>
         <Caption>{location}</Caption>
       </View>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: storeLogo}} />
+        <Image style={styles.image} source={{uri: companyLogo}} />
       </View>
     </Surface>
   );
