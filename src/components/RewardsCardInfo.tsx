@@ -5,6 +5,7 @@ import { Surface, Title, Subheading, Menu, Caption } from "react-native-paper";
 import { RewardsCard } from "../common/interfaces";
 import { Octicons } from "@expo/vector-icons";
 import { CardStickerSet } from "./CardStickerSet";
+import { QrCodeModal } from "./QrCodeModal";
 
 type RewardsCardInfoProps = {
   rewardsCard: RewardsCard;
@@ -23,10 +24,12 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
     totalCount,
     promoTitle,
     companyLogo,
-    companyLocation
+    companyLocation,
+    id,
   } = rewardsCard;
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const styles = StyleSheet.create({
     cardContainer: {
@@ -58,17 +61,25 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
     bottomChevronUpContainer: {
       justifyContent: "space-between",
       flexDirection: "row",
-      alignItems: "center"
-    }
+      alignItems: "center",
+    },
   });
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+    setIsMenuOpen(false);
   };
 
   return (
     <View>
       <Surface style={styles.cardContainer}>
+        <QrCodeModal
+          rewardsCardId={id}
+          isVisible={isModalVisible}
+          companyLogo={companyLogo}
+          onDismiss={toggleModal}
+        />
         <View>
           <View style={styles.topHeading}>
             <View style={styles.topHeadingLeft}>
@@ -82,14 +93,14 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
                   <Octicons
                     onPress={toggleMenu}
                     name="kebab-horizontal"
-                    size={30}
+                    size={40}
                     color={textColor}
                   />
                 }
               >
                 {acquiredCount !== totalCount ? (
                   <>
-                    <Menu.Item onPress={() => {}} title="Open QR Code" />
+                    <Menu.Item onPress={toggleModal} title="Open QR Code" />
                     <Menu.Item onPress={() => {}} title="Delete Card" />
                   </>
                 ) : (
@@ -111,9 +122,8 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
             />
           </View>
           <View style={styles.bottomChevronUpContainer}>
-            <Caption style={styles.bottomLocationCaption}>{companyLocation}</Caption>
+            <Caption>{companyLocation}</Caption>
             <MaterialCommunityIcons
-              style={styles.bottomChevronUpIcon}
               onPress={onClose}
               name="chevron-up"
               size={40}

@@ -16,7 +16,7 @@ export const RewardsCardList: React.FC<RewardsCardList> = ({ rewardsCards, onSel
         const topVal = index * 50;
 
         return (
-          <View style={{top: topVal, width: "100%", position: "absolute"}}>
+          <View key={index} style={{top: topVal, width: "100%", position: "absolute"}}>
             <RewardsCardListItem rewardsCard={rewardsCard} onSelect={onSelect} />
           </View>
         )
