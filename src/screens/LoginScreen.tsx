@@ -19,8 +19,8 @@ export const LoginScreen = () => {
       await signInWithOAuthCredential(await getFirebaseOAuthCredential());
     } catch (e) {
       setError(e.message);
+      setIsLoggingIn(false);
     }
-    setIsLoggingIn(false);
   };
 
   const signInWithOAuthCredential = async (
