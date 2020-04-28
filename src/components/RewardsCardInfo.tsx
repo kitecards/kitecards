@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Surface, Title, Subheading, Menu, Caption } from "react-native-paper";
+import { Surface, Title, Subheading, Menu, Caption, Portal, Dialog, Paragraph, Button } from "react-native-paper";
 import { RewardsCard } from "../common/interfaces";
 import { Octicons } from "@expo/vector-icons";
 import { CardStickerSet } from "./CardStickerSet";
@@ -10,11 +10,13 @@ import { QrCodeModal } from "./QrCodeModal";
 type RewardsCardInfoProps = {
   rewardsCard: RewardsCard;
   onClose: () => void;
+  onDelete: () => void;
 };
 
 export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
   rewardsCard,
   onClose,
+  onDelete,
 }) => {
   const {
     companyName,
@@ -30,6 +32,7 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isDeleteDialogVisible, setIsDeleteDialogVisible] = useState<boolean>(false);
 
   const styles = StyleSheet.create({
     cardContainer: {
@@ -71,8 +74,30 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
     setIsMenuOpen(false);
   };
 
+  const onConfirmDeleteHandler = () => {
+    setIsDeleteDialogVisible(false)
+    onDelete();
+  }
+
+  const menuDeleteOnClickHandler = () => {
+    setIsMenuOpen(false)
+    setIsDeleteDialogVisible(true)
+  }
+
   return (
     <View>
+      <Portal>
+      <Dialog visible={isDeleteDialogVisible} onDismiss={() => setIsDeleteDialogVisible(false)}>
+          <Dialog.Title>Alert</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>Are you sure you want to delete this rewards card?</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => setIsDeleteDialogVisible(false)}>Cancel</Button>
+            <Button onPress={onConfirmDeleteHandler}>Delete</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       <Surface style={styles.cardContainer}>
         <QrCodeModal
           rewardsCardId={id}
@@ -101,7 +126,7 @@ export const RewardsCardInfo: React.FC<RewardsCardInfoProps> = ({
                 {acquiredCount !== totalCount ? (
                   <>
                     <Menu.Item onPress={toggleModal} title="Open QR Code" />
-                    <Menu.Item onPress={() => {}} title="Delete Card" />
+                    <Menu.Item onPress={menuDeleteOnClickHandler} title="Delete Card" />
                   </>
                 ) : (
                   <>

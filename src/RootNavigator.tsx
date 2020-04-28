@@ -1,5 +1,5 @@
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -11,7 +11,7 @@ import { useTheme } from "react-native-paper";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
-const StoresStack = createStackNavigator();
+const PromosStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
 const HomeStackScreen: React.FC = () => {
@@ -32,17 +32,17 @@ const HomeStackScreen: React.FC = () => {
   );
 };
 
-const StoresStackScreen: React.FC = () => {
+const PromosStackScreen: React.FC = () => {
   return (
-    <StoresStack.Navigator
+    <PromosStack.Navigator
       screenOptions={{
         headerStyle: {
           shadowOffset: { height: 0, width: 0 },
         },
       }}
     >
-      <StoresStack.Screen name="Promos" component={PromosScreen} />
-    </StoresStack.Navigator>
+      <PromosStack.Screen name="Promos" component={PromosScreen} />
+    </PromosStack.Navigator>
   );
 };
 
@@ -70,23 +70,18 @@ export const RootNavigator: React.FC = () => {
         initialRouteName="Cards"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
-            let iconName: string;
-
             if (route.name === "Cards") {
-              iconName = "ios-card";
-            } else if (route.name === "Stores") {
-              iconName = "ios-basket";
+              return <MaterialCommunityIcons name="cards" size={size} color={color} />
+            } else if (route.name === "Promos") {
+              return <MaterialCommunityIcons name="sale" size={size} color={color} />
             } else {
-              iconName = "ios-person";
+              return <Ionicons name="ios-person" size={size} color={color} />;
             }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
         tabBarOptions={{ showLabel: false, activeTintColor: colors.primary }}
       >
-        <Tab.Screen name="Stores" component={StoresStackScreen} />
+        <Tab.Screen name="Promos" component={PromosStackScreen} />
         <Tab.Screen name="Cards" component={HomeStackScreen} />
         <Tab.Screen name="Profile" component={ProfileStackScreen} />
       </Tab.Navigator>

@@ -3,9 +3,10 @@ import { AppLayout } from "../components/AppLayout";
 import { Content } from "../components/Content";
 import { RewardsCard } from "../common/interfaces";
 import { RewardsCardList } from "../components/RewardsCardList";
-import { Animated, View } from "react-native";
+import { View, Image } from "react-native";
 import { fetchRewardsCards } from "../actions/rewardsCards";
 import { RewardsCardInfo } from "../components/RewardsCardInfo";
+import {Banner} from "react-native-paper";
 
 export const HomeScreen: React.FC = () => {
   const [rewardsCards, setRewardsCards] = useState<RewardsCard[]>([]);
@@ -36,13 +37,22 @@ export const HomeScreen: React.FC = () => {
     setSelectedRewardsCard(undefined);
   };
 
+  const rewardsCardOnDeleteHandler = () => {
+    console.log("fire a delete request here against selected rewards card");
+    setSelectedRewardsCard(undefined)
+  };
+
   return (
     <AppLayout>
       <Content>
         <View>
-        {selectedRewardsCard && (
-          <RewardsCardInfo rewardsCard={selectedRewardsCard} onClose={rewardsCardOnCloseHandler}/>
-        )}
+          {selectedRewardsCard && (
+            <RewardsCardInfo
+              rewardsCard={selectedRewardsCard}
+              onClose={rewardsCardOnCloseHandler}
+              onDelete={rewardsCardOnDeleteHandler}
+            />
+          )}
         </View>
         <View>
           <RewardsCardList
